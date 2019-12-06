@@ -63,6 +63,20 @@ public class InRoom : MonoBehaviour
         }
     }
 
+    public Vector2 GetRoomPosOnGrid(float mult = -1)
+    {
+        if (mult == -1)
+        {
+            mult = gridMult;
+        }
+        Vector2 rPos = roomPos;
+        rPos /= mult;
+        rPos.x = Mathf.Round(rPos.x);
+        rPos.y = Mathf.Round(rPos.y);
+        rPos *= mult;
+        return rPos;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
