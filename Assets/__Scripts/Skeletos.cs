@@ -21,7 +21,8 @@ public class Skeletos : Enemy, IFacingMover
         inRm = GetComponent<InRoom>();
     }
 
-   
+    
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,9 +31,12 @@ public class Skeletos : Enemy, IFacingMover
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        if(Time.time >= timeNextDecision)
+        base.Update();
+        if (knockback) return;
+
+        if (Time.time >= timeNextDecision)
         {
             DecideDirection();
         }

@@ -20,36 +20,16 @@ public class GuiPanel : MonoBehaviour
     {
         Transform trans = transform.Find("Key Count");
         keyCountText = trans.GetComponent<Text>();
+
         Transform healthPanel = transform.Find("Health Panel");
         healthImages = new List<Image>();
-        if(healthPanel != null)
+        if (healthPanel != null)
         {
             for (int i = 0; i < 20; i++)
             {
                 trans = healthPanel.Find("H_" + i);
                 if (trans == null) break;
                 healthImages.Add(trans.GetComponent<Image>());
-            }
-
-
-                //
-                int health = dray.health;
-            for(int i = 0; i<20; i++)
-            {
-                if (health > 1)
-                {
-                    healthImages[i].sprite = healthFull;
-                }
-                else if (health == 1)
-                {
-                    healthImages[i].sprite = healthHalf;
-
-                }
-                else
-                {
-                    healthImages[i].sprite = healthEmpty;
-                }
-                health -= 2;
             }
         }
     }
@@ -58,6 +38,7 @@ public class GuiPanel : MonoBehaviour
     void Update()
     {
         keyCountText.text = dray.numKeys.ToString();
+
         int health = dray.health;
         for (int i = 0; i < healthImages.Count; i++)
         {
@@ -68,7 +49,6 @@ public class GuiPanel : MonoBehaviour
             else if (health == 1)
             {
                 healthImages[i].sprite = healthHalf;
-
             }
             else
             {
