@@ -10,7 +10,7 @@ public class CamFollowDray : MonoBehaviour
     public InRoom drayInRm;
     public float transTime = .5f;
 
-    private Vector2 p0, p1;
+    private Vector3 p0, p1;
 
     private InRoom inRm;
     private float tranStart;
