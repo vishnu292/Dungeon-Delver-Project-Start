@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
@@ -11,6 +9,7 @@ public class Enemy : MonoBehaviour
     public float knockbackSpeed;
     public float knockbackDuration;
     public float invincibleDuration;
+    public GameObject[] randomItemDrops;
     public GameObject guaranteedItemDrop;
 
     [Header("Set Dynamically: Enemy")]
@@ -87,13 +86,22 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
-        Destroy(gameObject);
         GameObject go;
         if ( guaranteedItemDrop != null)
         {
             go = Instantiate<GameObject>(guaranteedItemDrop);
             go.transform.position = transform.position;
+        }else if (randomItemDrops.Length > 0)
+        {
+            int n = Random.Range(0, randomItemDrops.Length);
+            GameObject prefab = randomItemDrops[n];
+            if(prefab != null)
+            {
+                go = Instantiate<GameObject>(prefab);
+                go.transform.position = transform.position;
+            }
         }
+        Destroy(gameObject);
     }
 
     // Start is called before the first frame update
