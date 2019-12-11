@@ -14,7 +14,7 @@ public class Dray : MonoBehaviour, IFacingMover, IKeyMaster
     public int maxHealth = 10;
     public float knockbackSpeed = 10;
     public float knockbackDuration = .25f;
-    public float invincivleDuration = .5f;
+    public float invincibleDuration = .5f;
 
 
     [Header("Set Dynamically")]
@@ -23,6 +23,9 @@ public class Dray : MonoBehaviour, IFacingMover, IKeyMaster
     public eMode mode = eMode.idle;
     public int numKeys = 0;
     public bool invincible = false;
+    public bool hasGrappler = false;
+    public Vector3 lastSafeLoc;
+    public int lastSafeFacing;
 
     [SerializeField]
     private int _health;
@@ -58,6 +61,8 @@ public class Dray : MonoBehaviour, IFacingMover, IKeyMaster
         anim = GetComponent<Animator>();
         inRm = GetComponent<InRoom>();
         health = maxHealth;
+        lastSafeLoc = transform.position;
+        lastSafeFacing = facing;
     }
 
     // Start is called before the first frame update
@@ -174,6 +179,8 @@ public class Dray : MonoBehaviour, IFacingMover, IKeyMaster
                 roomNum = rm;
                 transitionPos = InRoom.DOORS[(doorNum + 2) % 4];
                 roomPos = transitionPos;
+                lastSafeLoc = transform.position;
+                lastSafeFacing = facing;
                 mode = eMode.transition;
                 transitionDone = Time.time + transitionDelay;
             }
@@ -188,7 +195,7 @@ public class Dray : MonoBehaviour, IFacingMover, IKeyMaster
 
         health -= dEf.damage;
         invincible = true;
-        invincibleDone = Time.time + invincivleDuration;
+        invincibleDone = Time.time + invincibleDuration;
 
         if (dEf.knockback)
         {
@@ -227,9 +234,22 @@ public class Dray : MonoBehaviour, IFacingMover, IKeyMaster
             case PickUp.eType.key:
                 keyCount++;
                 break;
+            case PickUp.eType.grappler:
+                hasGrappler = true;
+                break;
         }
         Destroy(colld.gameObject);
 
+    }
+
+    public void ResetInRoom(int healthLoss = 0)
+    {
+        transform.position = lastSafeLoc;
+        facing = lastSafeFacing;
+        health -= healthLoss;
+
+        invincible = true;
+        invincibleDone = Time.time + invincibleDuration;
     }
 
     public int GetFacing()
