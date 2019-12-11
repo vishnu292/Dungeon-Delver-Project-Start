@@ -1133,6 +1133,18 @@ MonoBehaviour:
   mode: 0
   grappleTiles: 
   unsafeTiles: 
+--- !u!114 &1990095763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990095761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be577f19c898e449a89355be6a62086, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1990095764 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4482449958499776210, guid: 65eaa15c804d1fa49bdbbd07f8edbde1,
